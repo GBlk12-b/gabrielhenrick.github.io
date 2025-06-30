@@ -1,110 +1,119 @@
+from zipfile import ZipFile
+from pathlib import Path
+
+# HTML com cronômetro completo
+html_content = """
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Poema e Música - Boi Garantido</title>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #fff0f0;
-    color: #3b0000;
-    padding: 2rem;
-    max-width: 700px;
-    margin: auto;
-    text-align: left;
-  }
-  h1 {
-    text-align: center;
-    color: #c30000;
-  }
-  .contador {
-    font-size: 1.3rem;
-    color: #b30000;
-    text-align: center;
-    margin: 1rem 0;
-  }
-  .mensagem p {
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-  .qr-code {
-    text-align: center;
-    margin: 2rem 0;
-  }
-  iframe {
-    display: block;
-    margin: 0 auto 2rem auto;
-    border-radius: 10px;
-  }
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>06 de Junho - Nosso Encontro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff0f0;
+      color: #3b0000;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      color: #c30000;
+    }
+    .contador {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+      color: #b30000;
+    }
+    .mensagem {
+      max-width: 700px;
+      margin: auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    iframe {
+      margin-top: 2rem;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
 
-<h1>🐂 Boi Garantido foi o sinal</h1>
+  <h1>🐂 Boi Garantido foi o sinal</h1>
 
-<div class="contador" id="diasContador">Carregando contador...</div>
+  <div class="contador" id="diasContador">
+    Carregando contador...
+  </div>
 
-<div class="mensagem">
-  <p>🐂 Boi Garantido foi o sinal.</p>
+  <div class="mensagem">
+    <p>
+    No meio das cores, dos batuques e dos gritos de festa,<br>
+    ali estava ela — pulando, cantando, sorrindo como se o mundo fosse leve demais pro tanto de beleza que ela carregava.<br>
+    Era dia 06 de junho, mas o tempo parou.<br><br>
 
-  <p>No meio das cores, dos batuques e dos gritos de festa,<br />
-  ali estava ela — pulando, cantando, sorrindo como se o mundo fosse leve demais pro tanto de beleza que ela carregava.<br />
-  Era dia 06 de junho, mas o tempo parou.</p>
+    E naquele instante, no calor da multidão, entre o vermelho do boi e o ritmo que ecoava no peito,<br>
+    meu olhar se prendeu ao dela — e algo em mim acordou.<br><br>
 
-  <p>E naquele instante,<br />
-  no calor da multidão, entre o vermelho do boi e o ritmo que ecoava no peito,<br />
-  meu olhar se prendeu ao dela — e algo em mim acordou.</p>
+    Não sei se foi o jeito que ela dançava, ou a forma que os olhos dela brilhavam mais do que todas as luzes do festival.<br>
+    Só sei que a partir dali, nada foi igual.<br><br>
 
-  <p>Não sei se foi o jeito que ela dançava,<br />
-  ou a forma que os olhos dela brilhavam mais do que todas as luzes do festival.<br />
-  Só sei que a partir dali, nada foi igual.</p>
+    Aquela bela moça que cantava como quem vive o momento sem medo, me encantou num nível que nem sei explicar.<br>
+    Foi mais que interesse. Foi conexão. Foi paz. Foi bagunça boa por dentro.<br><br>
 
-  <p>Aquela bela moça que cantava como quem vive o momento sem medo,<br />
-  me encantou num nível que nem sei explicar.<br />
-  Foi mais que interesse.<br />
-  Foi conexão. Foi paz. Foi bagunça boa por dentro.</p>
+    Hoje, ela tem mais do que meu olhar. Tem meu coração.<br>
+    Tem minhas ideias embaralhadas quando fala comigo.<br>
+    Tem meu silêncio quando fico pensando nela, mesmo sem dizer nada.<br><br>
 
-  <p>Hoje, ela tem mais do que meu olhar.<br />
-  Tem meu coração.<br />
-  Tem minhas ideias embaralhadas quando fala comigo.<br />
-  Tem meu silêncio quando fico pensando nela, mesmo sem dizer nada.</p>
+    Ela talvez nem saiba o quanto já mora em mim — mesmo com receios, mesmo com pausas, mesmo com dúvidas.<br>
+    Mas o que eu sinto é simples: quando ela sorri, meu mundo desacelera.<br>
+    E tudo o que era plano, ficou desejo.<br><br>
 
-  <p>Ela talvez nem saiba o quanto já mora em mim —<br />
-  mesmo com receios, mesmo com pausas, mesmo com dúvidas.<br />
-  Mas o que eu sinto é simples:<br />
-  quando ela sorri, meu mundo desacelera.<br />
-  E tudo o que era plano, ficou desejo.</p>
+    Se um dia isso virar amor vivido, o boi garantido vai ser nosso padrinho.<br>
+    Se não, que ela leve com ela o melhor de mim — porque desde aquele 06 de junho, eu só sei ser verdadeiro com o que senti.
+    </p>
+  </div>
 
-  <p>Se um dia isso virar amor vivido, o boi garantido vai ser nosso padrinho.<br />
-  Se não, que ela leve com ela o melhor de mim —<br />
-  porque desde aquele 06 de junho,<br />
-  eu só sei ser verdadeiro com o que senti.</p>
-</div>
+  <iframe width="300" height="169" src="https://www.youtube.com/embed/qxsTuP76JA4" title="Estandarte do Amor - Garantido" frameborder="0" allowfullscreen></iframe>
 
-<iframe width="300" height="169" src="https://www.youtube.com/embed/qxsTuP76JA4" title="Estandarte do Amor - Garantido" frameborder="0" allowfullscreen></iframe>
+  <script>
+    function atualizarContador() {
+      const inicio = new Date("2025-06-06T00:00:00");
+      const agora = new Date();
+      const diff = agora - inicio;
 
-<div class="qr-code" id="qrcode"></div>
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diff / (1000 * 60)) % 60);
+      const segundos = Math.floor((diff / 1000) % 60);
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-<script>
-  // Atualiza o contador de dias desde 06/06/2025
-  function atualizarContador() {
-    const inicio = new Date("2025-06-06T00:00:00");
-    const hoje = new Date();
-    const diffTempo = hoje - inicio;
-    const dias = Math.floor(diffTempo / (1000 * 60 * 60 * 24));
-    document.getElementById("diasContador").innerText = `Já faz ${dias} dias desde o dia em que nos conhecemos ❤️`;
-  }
-  atualizarContador();
+      document.getElementById("diasContador").innerText =
+        `Estamos conectados há: ${dias} dias, ${horas}h, ${minutos}min e ${segundos}s ❤️`;
+    }
 
-  // Gera QR code da URL atual da página
-  const qrcodeContainer = document.getElementById("qrcode");
-  const urlAtual = window.location.href;
-  QRCode.toCanvas(urlAtual, { width: 150 }, function (error, canvas) {
-    if (error) console.error(error);
-    else qrcodeContainer.appendChild(canvas);
-  });
-</script>
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
+  </script>
+
+</body>
+</html>
+"""
+
+# Caminho do arquivo
+output_dir = Path("/mnt/data/poema_com_cronometro")
+output_dir.mkdir(parents=True, exist_ok=True)
+html_path = output_dir / "index.html"
+
+# Salva o arquivo
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+# Cria o zip
+zip_path = Path("/mnt/data/poema_com_cronometro.zip")
+with ZipFile(zip_path, "w") as zipf:
+    zipf.write(html_path, arcname="index.html")
+
+zip_path.name
