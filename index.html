@@ -1,5 +1,3 @@
-# HTML com cronômetro completo
-html_content = """
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -97,20 +95,3 @@ html_content = """
 
 </body>
 </html>
-"""
-
-# Caminho do arquivo
-output_dir = Path("/mnt/data/poema_com_cronometro")
-output_dir.mkdir(parents=True, exist_ok=True)
-html_path = output_dir / "index.html"
-
-# Salva o arquivo
-with open(html_path, "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-# Cria o zip
-zip_path = Path("/mnt/data/poema_com_cronometro.zip")
-with ZipFile(zip_path, "w") as zipf:
-    zipf.write(html_path, arcname="index.html")
-
-zip_path.name
